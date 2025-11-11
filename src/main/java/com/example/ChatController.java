@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 public class ChatController {
 
     // FIXA TILL ICKE-NULL
-    private final ChatModel chatModel = new ChatModel(null);
+    private final ChatModel chatModel = new ChatModel(new NtfyConnectionImpl());
     public ListView<NtfyMessageDto> messageView;
 
     @FXML
@@ -23,6 +23,7 @@ public class ChatController {
     }
 
     public void sendMessage(ActionEvent actionEvent) {
+        chatModel.setMessageToSend(messageInput.getText());
         chatModel.sendMessage();
         messageInput.clear();
     }

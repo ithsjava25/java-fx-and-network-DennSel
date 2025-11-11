@@ -1,7 +1,6 @@
 package com.example;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import javafx.application.Platform;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -52,6 +51,6 @@ public class NtfyConnectionImpl implements NtfyConnection {
                         .map(s -> mapper.readValue(s, NtfyMessageDto.class))
                         .filter(message -> message.event().equals("message"))
                         .peek(System.out::println) // Används för att, i konsolen, se vad som kommer in
-                        .forEach(messageHandler);
+                        .forEach(messageHandler));
     }
 }
