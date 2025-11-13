@@ -1,4 +1,4 @@
-module hellofx {
+module ChatFX {
     requires javafx.controls;
     requires javafx.fxml;
     requires io.github.cdimascio.dotenv.java;

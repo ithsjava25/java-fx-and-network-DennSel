@@ -8,11 +8,11 @@
     <ListView fx:id="messageView" />
    <HBox prefWidth="200.0" spacing="10.0">
       <children>
-          <TextField fx:id="messageInput" onAction="#sendMessage" alignment="TOP_LEFT" maxHeight="Infinity" promptText="Type a message..." HBox.hgrow="ALWAYS" />
+          <TextField fx:id="messageInput" alignment="TOP_LEFT" maxHeight="Infinity" onAction="#sendMessage" promptText="Type a message..." HBox.hgrow="ALWAYS" />
          <VBox alignment="TOP_RIGHT" maxHeight="Infinity" minHeight="10.0" minWidth="10.0" prefHeight="70.0" prefWidth="43.0" spacing="5.0">
             <children>
-                <Button minHeight="40.0" onAction="#sendMessage" text="Send"/>
-               <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="📎">
+                <Button minHeight="40.0" onAction="#sendMessage" text="Send" />
+               <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#receiveMessage" text="📎">
                   <VBox.margin>
                      <Insets />
                   </VBox.margin>
