@@ -31,12 +31,12 @@ class ChatModelTest {
         var connection = new NtfyConnectionImpl("http://localhost:" + wmRuntimeInfo.getHttpPort());
         var model = new ChatModel(connection);
         model.setMessageToSend("testing send");
-        stubFor(post("/h8GikG9AWE9AG9jh3j3/json?since=FAM1G3OdWXzQ").willReturn(ok()));
+        stubFor(post("/h8GikG9AWE9AG9jh3j3").willReturn(ok()));
 
         model.sendMessage();
 
         // Verifiera anropet
-        verify(postRequestedFor(urlEqualTo("/h8GikG9AWE9AG9jh3j3/json?since=FAM1G3OdWXzQ"))
+        verify(postRequestedFor(urlEqualTo("/h8GikG9AWE9AG9jh3j3"))
                 .withRequestBody(containing("testing send")));
     }
 
@@ -45,7 +45,7 @@ class ChatModelTest {
         var connection = new NtfyConnectionImpl("http://localhost:" + wmRuntimeInfo.getHttpPort());
         var model = new ChatModel(connection);
 
-        stubFor(get("/h8GikG9AWE9AG9jh3j3/json?since=FAM1G3OdWXzQ")
+        stubFor(get("/h8GikG9AWE9AG9jh3j3/json?since=all")
                 .willReturn(ok().withBody("{\"id\":\"1\",\"time\":123,\"event\":\"message\",\"topic\":\"chat\",\"message\":\"testing return\"}")));
 
         // Wait for message to arrive, or the test completes too early
@@ -56,7 +56,7 @@ class ChatModelTest {
             waited += 100;
         }
 
-        verify(getRequestedFor(urlEqualTo("/h8GikG9AWE9AG9jh3j3/json?since=FAM1G3OdWXzQ")));
+        verify(getRequestedFor(urlEqualTo("/h8GikG9AWE9AG9jh3j3/json?since=all")));
 
         assertFalse(model.getMessages().isEmpty());
         assertEquals("testing return", model.getMessages().getLast().message());

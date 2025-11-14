@@ -5,14 +5,22 @@
 <?import javafx.scene.layout.*?>
 
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ChatController">
-    <ListView fx:id="messageView" />
-   <HBox prefWidth="200.0" spacing="10.0">
+   <HBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #f0f0f0;">
+      <children>
+         <Label alignment="CENTER" maxHeight="Infinity" text="Chattrum:" />
+         <ComboBox fx:id="comboBox" prefWidth="150.0" promptText="Hej" />
+      </children>
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding></HBox>
+    <ListView fx:id="messageView" minWidth="300.0" prefWidth="500.0" />
+   <HBox spacing="10.0" style="-fx-background-color: #f0f0f0;">
       <children>
           <TextField fx:id="messageInput" alignment="TOP_LEFT" maxHeight="Infinity" onAction="#sendMessage" promptText="Type a message..." HBox.hgrow="ALWAYS" />
-         <VBox alignment="TOP_RIGHT" maxHeight="Infinity" minHeight="10.0" minWidth="10.0" prefHeight="70.0" prefWidth="43.0" spacing="5.0">
+         <VBox alignment="TOP_RIGHT" maxHeight="Infinity" prefHeight="70.0" prefWidth="43.0" spacing="5.0">
             <children>
                 <Button minHeight="40.0" onAction="#sendMessage" text="Send" />
-               <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#receiveMessage" text="📎">
+               <Button fx:id="selectFile" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#attachFile" text="📎">
                   <VBox.margin>
                      <Insets />
                   </VBox.margin>
