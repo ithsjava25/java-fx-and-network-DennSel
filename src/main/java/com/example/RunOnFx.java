@@ -8,7 +8,6 @@ public class RunOnFx {
             if (Platform.isFxApplicationThread()) task.run();
             else Platform.runLater(task);
         } catch (IllegalStateException notInitialized) {
-            // JavaFX toolkit not initialized (e.g., unit tests): run inline
             task.run();
         }
     }

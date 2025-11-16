@@ -7,7 +7,9 @@
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ChatController">
    <HBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #f0f0f0;">
       <children>
-         <Label alignment="CENTER" maxHeight="Infinity" text="Chattrum:" />
+         <Label alignment="CENTER" maxHeight="Infinity" text="Användare:" />
+         <TextField fx:id="username" promptText="användarnamn" />
+         <Label alignment="CENTER" layoutX="156.0" layoutY="15.0" maxHeight="Infinity" text="Chattrum:" />
          <ComboBox fx:id="comboBox" prefWidth="150.0" promptText="Hej" />
       </children>
       <padding>

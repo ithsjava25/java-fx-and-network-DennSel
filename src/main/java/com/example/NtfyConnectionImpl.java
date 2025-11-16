@@ -33,6 +33,11 @@ public class NtfyConnectionImpl implements NtfyConnection {
     }
 
     @Override
+    public boolean send(String message) {
+        return false;
+    }
+
+    @Override
     public boolean send(String message, String topic) {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(message))
@@ -77,10 +82,13 @@ public class NtfyConnectionImpl implements NtfyConnection {
     }
 
     @Override
-    public CompletableFuture<Void> receive(Consumer<NtfyMessageDto> messageHandler, String topic) {
+    public CompletableFuture<Void> receive(Consumer<NtfyMessageDto> messageHandler, String topic, Long sinceTime) {
+        String uri = hostName + "/" + topic + "/json";
+        System.out.println(uri);
+
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(hostName + "/" + topic + "/json"))
+                .uri(URI.create(uri))
                 .build();
 
         return http.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofLines())
@@ -95,8 +103,7 @@ public class NtfyConnectionImpl implements NtfyConnection {
                             }
                         })
                         .filter(Objects::nonNull)
-                        .filter(message -> message.event().equals("message"))
-                        .peek(System.out::println) // Används för att, i konsolen, se vad som kommer in
+                        .peek(System.out::println)
                         .forEach(messageHandler));
     }
 
@@ -110,12 +117,12 @@ public class NtfyConnectionImpl implements NtfyConnection {
         http.sendAsync(request, HttpResponse.BodyHandlers.ofByteArray())
                 .thenAccept(response -> {
                     if (response.statusCode() == 200) {
-                        // Visa filväljare för att spara filen
+                        // Show file chooser
                         Platform.runLater(() -> {
                             FileChooser fileChooser = new FileChooser();
                             fileChooser.setTitle("Spara fil");
 
-                            // Försök extrahera filnamn från URL
+                            // Extract filename from URL
                             String filename = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
                             fileChooser.setInitialFileName(filename);
 
@@ -124,9 +131,9 @@ public class NtfyConnectionImpl implements NtfyConnection {
                             if (saveFile != null) {
                                 try {
                                     Files.write(saveFile.toPath(), response.body());
-                                    System.out.println("Fil sparad: " + saveFile.getAbsolutePath());
+                                    System.out.println("File saved: " + saveFile.getAbsolutePath());
                                 } catch (IOException e) {
-                                    System.err.println("Kunde inte spara fil: " + e.getMessage());
+                                    System.err.println("Couldn't save file: " + e.getMessage());
                                 }
                             }
                         });
@@ -137,4 +144,5 @@ public class NtfyConnectionImpl implements NtfyConnection {
                     return null;
                 });
     }
+
 }

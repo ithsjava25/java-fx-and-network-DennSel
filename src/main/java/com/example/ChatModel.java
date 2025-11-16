@@ -7,6 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static com.example.RunOnFx.runOnFx;
@@ -31,7 +33,7 @@ public class ChatModel {
     }
 
     public void changeTopic(String newTopic) {
-        // Close the room subscription
+
         if (currentSubscription != null && !currentSubscription.isDone()) {
             currentSubscription.cancel(true);
         }
@@ -64,7 +66,13 @@ public class ChatModel {
     }
 
     public void receiveMessage() {
-        currentSubscription = connection.receive(m -> runOnFx(() -> messages.add(m)), topic);
+        currentSubscription = connection.receive(m -> runOnFx(() -> handleIncomingMessage(m)), topic, null);
+    }
+
+    private void handleIncomingMessage(NtfyMessageDto m) {
+        if (m.event().equals("message")) {
+            messages.add(m);
+        }
     }
 
     /* ************FILES***************** */

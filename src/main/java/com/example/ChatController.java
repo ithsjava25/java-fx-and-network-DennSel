@@ -18,6 +18,9 @@ public class ChatController {
     public Button selectFile;
 
     @FXML
+    private TextField username;
+
+    @FXML
     private ComboBox<String> comboBox;
 
     @FXML
@@ -36,7 +39,6 @@ public class ChatController {
                     setText(null);
                     setGraphic(null);
                 } else if (item.attachment() != null) {
-                    // Det finns en bifogad fil
                     Button downloadButton = new Button("📎 Ladda ner fil");
                     downloadButton.setOnAction(e -> chatModel.downloadFile(item.attachment().url()));
 
@@ -54,7 +56,7 @@ public class ChatController {
             }
         });
 
-        comboBox.setItems(FXCollections.observableArrayList("LPNqGAop0sFEfw0F", "h8GikG9AWE9AG9jh3j3", "Hallelujamomentmyman"));
+        comboBox.setItems(FXCollections.observableArrayList("LPNqGAop0sFEfw0F", "h8GikG9AWE9AG9jh3j3"));
         comboBox.setValue("LPNqGAop0sFEfw0F");
         comboBox.setOnAction(e -> {
             chatModel.changeTopic(comboBox.getValue());
@@ -64,7 +66,12 @@ public class ChatController {
 
     public void sendMessage(ActionEvent actionEvent) {
         if (!messageInput.getText().isEmpty()) {
-            chatModel.setMessageToSend(messageInput.getText());
+            String userName = "Anonymous";
+            userName = username.getText();
+            if (userName.isEmpty()) {
+                userName = "Anonymous";
+            }
+            chatModel.setMessageToSend(userName + ": " + messageInput.getText());
             chatModel.sendMessage();
             messageInput.clear();
         }
