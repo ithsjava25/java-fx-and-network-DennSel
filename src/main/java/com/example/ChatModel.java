@@ -63,7 +63,7 @@ public class ChatModel {
     }
 
     private void handleIncomingMessage(NtfyMessageDto m) {
-        if (m.event().equals("message")) {
+        if ("message".equals(m.event())) {
             messages.add(m);
         }
     }
