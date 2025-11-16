@@ -6,16 +6,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class HelloFX extends Application {
+public class ChatFX extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloFX.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ChatFX.class.getResource("chat-view.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 640, 480);
-        stage.setTitle("Hello MVC");
+        stage.setTitle("Chat MVC");
         stage.setScene(scene);
         stage.show();
+
+        // Focus TextField on startup
+        ChatController chatController = fxmlLoader.getController();
+        chatController.focusTextField();
     }
 
     public static void main(String[] args) {
