@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 public class NtfyConnectionSpy implements NtfyConnection {
 
     String message;
+    String topic;
 
     @Override
     public boolean send(String message) {
@@ -16,7 +17,9 @@ public class NtfyConnectionSpy implements NtfyConnection {
 
     @Override
     public boolean send(String message, String topic) {
-        return false;
+        this.message = message;
+        this.topic = topic;
+        return true;
     }
 
     @Override

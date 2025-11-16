@@ -1,14 +1,11 @@
 package com.example;
 
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static com.example.RunOnFx.runOnFx;
@@ -51,10 +48,6 @@ public class ChatModel {
 
     public String getMessageToSend() {
         return messageToSend.get();
-    }
-
-    public StringProperty messageToSendProperty() {
-        return messageToSend;
     }
 
     void setMessageToSend(String message) {
